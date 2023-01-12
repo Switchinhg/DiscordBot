@@ -1,6 +1,5 @@
 import 'dotenv/config';
 import express from 'express';
-import {Client, GatewayIntentBits} from 'discord.js'
 import  moment from 'moment'
 moment.locale('es')
 
@@ -14,19 +13,8 @@ const PORT = process.env.PORT || 3000;
 app.use(express.json());
 
 /* EMOJIS */
-const emojis = [':star_struck:',':star2:',':1_:',':2_:',':4_:',':6_:',':8_:',':admiral2:',':admiral:']
+const emojis = [':star_struck:',':star2:',' :1_: ',' :2_: ',' :4_: ',' :6_: ',' :8_: ',' :admiral2: ',' :admiral: ']
 
-
-/* Creamos el bot */
-const bot = new Client({
-	intents: [
-		GatewayIntentBits.Guilds,
-		GatewayIntentBits.GuildMessages,
-		GatewayIntentBits.MessageContent,
-		GatewayIntentBits.GuildMembers,
-		GatewayIntentBits.GuildPresences,
-	],
-})
 
 /* Cuando Inicializa */
 bot.on('ready', () =>{
@@ -40,7 +28,7 @@ bot.on('guildMemberAdd',async member=>{
   // const channel = await bot.channels.fetch('974806355208716348') //Swicho's Privado
   const emojiSelected = Math.floor(Math.random()* emojis.length)
   if(!channel) return
-  channel.send(`Bienvenido al servidor! ${member} ${emojis[emojiSelected]}`)
+  channel.send(`Bienvenido al servidor! ${member} <${emojis[emojiSelected]}>`)
 })
 
 
@@ -56,7 +44,9 @@ bot.on('presenceUpdate', async ( oldPresence, newPresence ) =>{
     }else{
       // tests
       // channel.send(`Huelo que <@${newPresence.user.id}> entro a Valorant a las ${time} :smiling_imp:`)
-      
+    }
+    if(newPresence.activities[0].name === 'Need for Speed™ Most Wanted'){
+      channel.send(`<${newPresence.user.id}> entro a nisforspi`)
     }
   }
 })
@@ -68,6 +58,9 @@ bot.on('messageCreate', message =>{
       case 'hola':
         message.channel.send('RATON SIN COLA')
         break
+      case '':
+
+        break
     }
 })
 
@@ -75,9 +68,6 @@ bot.on('messageCreate', message =>{
 bot.login(process.env.DISCORD_TOKEN)
 
 
-app.get('/interactions', (req,res)=>{
-    res.send('ok')
-})
 
 /* crea server */
 app.listen(PORT, () => {
