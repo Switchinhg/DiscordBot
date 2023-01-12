@@ -74,6 +74,11 @@ bot.on('messageCreate', message =>{
 /* Logea el bot */
 bot.login(process.env.DISCORD_TOKEN)
 
+
+app.get('/interactions', (req,res)=>{
+    res.send('ok')
+})
+
 /* crea server */
 app.listen(PORT, () => {
   console.log('Listening on port', PORT);
