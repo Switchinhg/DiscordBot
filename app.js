@@ -13,6 +13,9 @@ const PORT = process.env.PORT || 3000;
 // Parse request body and verifies incoming requests using discord-interactions package
 app.use(express.json());
 
+/* EMOJIS */
+const emojis = [':star_struck:',':star2:',':1_:',':2_:',':4_:',':6_:',':8_:',':admiral2:',':admiral:']
+
 
 /* Creamos el bot */
 const bot = new Client({
@@ -32,17 +35,21 @@ bot.on('ready', () =>{
 })
 
 /* Cuando alguien entra al servidor */
-bot.on('guildMemberAdd',member=>{
-  const channel = member.guild.channels.find(channel=> channel.name === 'asdasd')
+bot.on('guildMemberAdd',async member=>{
+  const channel = await bot.channels.fetch('698009245521543168') //SwiCynGoki
+  // const channel = await bot.channels.fetch('974806355208716348') //Swicho's Privado
+  const emojiSelected = Math.floor(Math.random()* emojis.length)
   if(!channel) return
-  channel.send(`Bienvenido al servidor! ${member}`)
+  channel.send(`Bienvenido al servidor! ${member} ${emojis[emojiSelected]}`)
 })
 
 
 /* Cuando cambia la actividad de  algun usuario */
 bot.on('presenceUpdate', async ( oldPresence, newPresence ) =>{
   if(newPresence.activities[0]?.name){
-    const channel = await bot.channels.fetch('974806355208716348')
+    const channel = await bot.channels.fetch('1063197611705774220') //SWiCynGoki
+    // const channel = await bot.channels.fetch('974806355208716348') //Swicho's Privado
+
     const time = moment().format('LT')
     if(newPresence.activities[0].name === 'VALORANT'){
       channel.send(`Huelo que <@${newPresence.user.id}> entro a Valorant a las ${time} :smiling_imp:`)
