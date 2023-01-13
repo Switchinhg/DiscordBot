@@ -1,4 +1,5 @@
 import 'dotenv/config';
+import {Client, GatewayIntentBits} from 'discord.js'
 import express from 'express';
 import  moment from 'moment'
 moment.locale('es')
@@ -15,6 +16,15 @@ app.use(express.json());
 /* EMOJIS */
 const emojis = [':star_struck:',':star2:',' :1_: ',' :2_: ',' :4_: ',' :6_: ',' :8_: ',' :admiral2: ',' :admiral: ']
 
+const bot = new Client({
+	intents: [
+		GatewayIntentBits.Guilds,
+		GatewayIntentBits.GuildMessages,
+		GatewayIntentBits.MessageContent,
+		GatewayIntentBits.GuildMembers,
+		GatewayIntentBits.GuildPresences,
+	],
+})
 
 /* Cuando Inicializa */
 bot.on('ready', () =>{
@@ -24,8 +34,8 @@ bot.on('ready', () =>{
 
 /* Cuando alguien entra al servidor */
 bot.on('guildMemberAdd',async member=>{
-  const channel = await bot.channels.fetch('698009245521543168') //SwiCynGoki
-  // const channel = await bot.channels.fetch('974806355208716348') //Swicho's Privado
+  // const channel = await bot.channels.fetch('698009245521543168') //SwiCynGoki
+  const channel = await bot.channels.fetch('974806355208716348') //Swicho's Privado
   const emojiSelected = Math.floor(Math.random()* emojis.length)
   if(!channel) return
   channel.send(`Bienvenido al servidor! ${member} <${emojis[emojiSelected]}>`)
@@ -35,8 +45,8 @@ bot.on('guildMemberAdd',async member=>{
 /* Cuando cambia la actividad de  algun usuario */
 bot.on('presenceUpdate', async ( oldPresence, newPresence ) =>{
   if(newPresence.activities[0]?.name){
-    const channel = await bot.channels.fetch('1063197611705774220') //SWiCynGoki
-    // const channel = await bot.channels.fetch('974806355208716348') //Swicho's Privado
+    // const channel = await bot.channels.fetch('1063197611705774220') //SWiCynGoki
+    const channel = await bot.channels.fetch('974806355208716348') //Swicho's Privado
 
     const time = moment().format('LT')
     if(newPresence.activities[0].name === 'VALORANT'){
@@ -46,7 +56,7 @@ bot.on('presenceUpdate', async ( oldPresence, newPresence ) =>{
       // channel.send(`Huelo que <@${newPresence.user.id}> entro a Valorant a las ${time} :smiling_imp:`)
     }
     if(newPresence.activities[0].name === 'Need for Speed™ Most Wanted'){
-      channel.send(`<${newPresence.user.id}> entro a nisforspi`)
+      channel.send(`<@${newPresence.user.id}> entro a nisforspi`)
     }
   }
 })
