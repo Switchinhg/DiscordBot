@@ -34,8 +34,8 @@ bot.on('ready', () =>{
 
 /* Cuando alguien entra al servidor */
 bot.on('guildMemberAdd',async member=>{
-  // const channel = await bot.channels.fetch('698009245521543168') //SwiCynGoki
-  const channel = await bot.channels.fetch('974806355208716348') //Swicho's Privado
+  const channel = await bot.channels.fetch('698009245521543168') //SwiCynGoki
+  // const channel = await bot.channels.fetch('974806355208716348') //Swicho's Privado
   const emojiSelected = Math.floor(Math.random()* emojis.length)
   if(!channel) return
   channel.send(`Bienvenido al servidor! ${member} <${emojis[emojiSelected]}>`)
@@ -45,8 +45,8 @@ bot.on('guildMemberAdd',async member=>{
 /* Cuando cambia la actividad de  algun usuario */
 bot.on('presenceUpdate', async ( oldPresence, newPresence ) =>{
   if(newPresence.activities[0]?.name){
-    // const channel = await bot.channels.fetch('1063197611705774220') //SWiCynGoki
-    const channel = await bot.channels.fetch('974806355208716348') //Swicho's Privado
+    const channel = await bot.channels.fetch('1063197611705774220') //SWiCynGoki
+    // const channel = await bot.channels.fetch('974806355208716348') //Swicho's Privado
 
     const time = moment().format('LT')
     if(newPresence.activities[0].name === 'VALORANT'){
